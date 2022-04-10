@@ -1,0 +1,15 @@
+type Shop {
+  name: String!
+  description: String!
+  coverImg: String!
+  products: [Product]!
+  ownerID: String!
+}
+
+type Product {
+  name: String!
+  description: String!
+  price: Float!
+  category: String!
+  shop: Shop! @relation
+}
