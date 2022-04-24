@@ -13,3 +13,7 @@ type Product {
   category: String!
   shop: Shop! @relation
 }
+
+type Query {
+  getAllProducts: [Product]
+}
