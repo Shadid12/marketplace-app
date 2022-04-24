@@ -11,6 +11,7 @@ type Product {
   description: String!
   price: Float!
   category: String!
+  imageUrl: String
   shop: Shop! @relation
 }
 

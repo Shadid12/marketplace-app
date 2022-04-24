@@ -13,7 +13,7 @@ const ProductList = ({ products }: { products: any[] } ) => {
 const  ProductItem = ({ product } : { product: any }) => (
   <a href="#" className="group">
     <div className={itemContainer}>
-      <img src="https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg" className={imageStyle} />
+      <img src={product.imageUrl ? product.imageUrl : 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg'} className={imageStyle} />
     </div>
     <h3 className="mt-4 text-sm text-gray-700">
       {product.name}

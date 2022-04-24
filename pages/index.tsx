@@ -10,6 +10,7 @@ query {
       name
       description
       price
+      imageUrl
       shop {
         _id
       }
@@ -19,8 +20,9 @@ query {
 `
 
 const Home: NextPage = () => {
-  const { data } = useQuery(GET_PRODUCTS)
+  const { data, loading } = useQuery(GET_PRODUCTS)
   console.log(' ==> ', data)
+  if (loading) return <p>Loading...</p>
   return (
     <ProductList products={data.getAllProducts.data} />
   )
