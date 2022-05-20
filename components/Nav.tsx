@@ -4,7 +4,12 @@ const navLinkStyle = `cursor-pointer inline-flex items-center px-1 pt-1 text-gra
 
 const iconButtonStyle = `flex bg-white p-2 rounded-full text-gray-400 hover:text-indigo-400 border-2 border-gray-500 hover:border-indigo-400`
 
+import { useUser } from '@auth0/nextjs-auth0'
+
 export default function Nav() {
+  const { user, isLoading } = useUser()
+  console.log('--->', user)
+
   return (
     <nav className="bg-white shadow">
       <div className="max-w-7xl mx-auto px-4">
@@ -26,6 +31,21 @@ export default function Nav() {
               {` ${3} Item(s)`}
             </button>
             </Link>
+            {
+              !user ? (
+                <a href="/api/auth/login" className="rounded-md border bg-purple-100 px-2 py-3 mr-2 ml-2">
+                  Login as Vendor
+                </a>
+              ) : (
+                <>
+                  <img src={user.picture ? user.picture : ''} className="rounded-full w-8 h-8 ml-2" />
+                  <span className="ml-2 mr-2">{user.name}</span>
+                  <a href="/api/auth/logout" className="rounded-md border bg-purple-100 px-2 py-3 mr-2">
+                    Logout
+                  </a>
+                </>
+              )
+            }
           </div>
         </div>
       </div>
