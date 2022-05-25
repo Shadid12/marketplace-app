@@ -40,6 +40,9 @@ export default function Nav() {
                 <>
                   <img src={user.picture ? user.picture : ''} className="rounded-full w-8 h-8 ml-2" />
                   <span className="ml-2 mr-2">{user.name}</span>
+                  <a href="/manage-shops" className="rounded-md border bg-purple-100 px-2 py-3 mr-2">
+                    Manage Shops
+                  </a>
                   <a href="/api/auth/logout" className="rounded-md border bg-purple-100 px-2 py-3 mr-2">
                     Logout
                   </a>
