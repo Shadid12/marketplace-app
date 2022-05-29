@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { gql } from '@apollo/client/core';
 import { useMutation } from '@apollo/client';
 import { useUser } from '@auth0/nextjs-auth0';
-
+import { httpLink, setAuthToken } from '../gqlClient';
 
 const CREATE_SHOP = gql`
   mutation CreateShop(
@@ -24,9 +24,11 @@ const CREATE_SHOP = gql`
   }
 `
 
-const NewShopForm = () => { 
+const NewShopForm = ({ accessToken }: { accessToken: string }) => { 
 
-  const [createNewShop, { data }] = useMutation(CREATE_SHOP);
+  const [createNewShop, { client, data }] = useMutation(CREATE_SHOP);
+
+  client.setLink(setAuthToken(accessToken).concat(httpLink));
 
   const { user } = useUser();
   
@@ -102,6 +104,3 @@ const labelStyle = `block text-sm font-medium text-gray-700`;
 const inputStyle = `shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md`;
 
 export default NewShopForm;
-
-
-// https://shadid12.us.auth0.com/.well-known/jwks.json
