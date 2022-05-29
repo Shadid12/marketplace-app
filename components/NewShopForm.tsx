@@ -1,8 +1,35 @@
 import { useState } from 'react'
+import { gql } from '@apollo/client/core';
+import { useMutation } from '@apollo/client';
+import { useUser } from '@auth0/nextjs-auth0';
+
+
+const CREATE_SHOP = gql`
+  mutation CreateShop(
+    $name: String!
+    $description: String!
+    $coverImg: String!
+    $ownerID: String!
+  ) {
+    createShop(data: {
+      name: $name
+      description: $description
+      coverImg: $coverImg
+      ownerID: $ownerID
+      products: []
+    }) {
+      _id
+      name
+    } 
+  }
+`
 
 const NewShopForm = () => { 
-  
 
+  const [createNewShop, { data }] = useMutation(CREATE_SHOP);
+
+  const { user } = useUser();
+  
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -21,6 +48,22 @@ const NewShopForm = () => {
    */
   const handleSubmit = (e: any) => {
     e.preventDefault();
+
+    const { name, description, coverImg } = formData;
+
+    createNewShop({
+      variables: { 
+        name,
+        description,
+        coverImg, 
+        ownerID: user?.sub,
+      }
+    }).then(res => {
+      alert('Shop created successfully');
+    }).catch(err => {
+      console.log(err);
+    });
+
     console.log(formData);
   }
 
