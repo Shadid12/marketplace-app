@@ -24,7 +24,7 @@ const Home: NextPage = () => {
   console.log(' ==> ', data)
   if (loading) return <p>Loading...</p>
   return (
-    <ProductList products={data.getAllProducts.data} />
+    <ProductList products={data?.getAllProducts.data} />
   )
 }
 

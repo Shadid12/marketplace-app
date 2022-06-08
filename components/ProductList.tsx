@@ -2,7 +2,7 @@ const ProductList = ({ products }: { products: any[] } ) => {
   return (
     <div className={listStyle}>
       <div className={listGridStyle}>
-      {products.map(product => 
+      {products?.map(product => 
         <ProductItem key={product._id} product={product} />  
       )}
       </div>
