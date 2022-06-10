@@ -32,7 +32,7 @@ export default function ManageShops(props: any) {
 
 export async function getServerSideProps(ctx: any) {
   const { accessToken } = await getAccessToken(ctx.req, ctx.res);
-
+  console.log(accessToken);
   return {
     props: { 
       accessToken,

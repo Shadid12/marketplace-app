@@ -21,3 +21,9 @@ type Query {
     ownerID: String!
   ): [Shop]
 }
+
+type Mutation {
+  deleteShopAndProducts(
+    shopID: ID!
+  ): Boolean @resolver(name: "deleteShopAndProducts")
+}
