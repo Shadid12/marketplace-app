@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+import { Context } from '../context'
+ 
 const ProductList = ({ products }: { products: any[] } ) => { 
   return (
     <div className={listStyle}>
@@ -10,19 +13,27 @@ const ProductList = ({ products }: { products: any[] } ) => {
   )
 }
 
-const  ProductItem = ({ product } : { product: any }) => (
-  <a href="#" className="group">
-    <div className={itemContainer}>
-      <img src={product.imageUrl ? product.imageUrl : 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg'} className={imageStyle} />
+const  ProductItem = ({ product } : { product: any }) => {
+  const { dispatch } = useContext(Context as any);
+  return (
+    <div className="group">
+      <div className={itemContainer}>
+        <img src={product.imageUrl ? product.imageUrl : 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg'} className={imageStyle} />
+      </div>
+      <h3 className="mt-4 text-sm text-gray-700">
+        {product.name}
+      </h3>
+      <p className="mt-1 text-lg font-medium text-gray-900">
+        $ {product.price}
+      </p>
+      <button className="p-2 bg-indigo-200 rounded" onClick={() => {
+        dispatch({ type: 'ADD_TO_CART', payload: product })
+      }}>
+        Add to cart
+      </button>
     </div>
-    <h3 className="mt-4 text-sm text-gray-700">
-      {product.name}
-    </h3>
-    <p className="mt-1 text-lg font-medium text-gray-900">
-      $ {product.price}
-    </p>
-  </a>
-)
+  )
+}
 
 
 const listStyle = `mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8`;
